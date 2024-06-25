@@ -34,14 +34,16 @@ title: What is Software Testing
 
 <h1>What is Software Testing?</h1>
 
-<div>The process of evaluating and verifying that a software product or application does what it’s supposed to do. 
+<li class="text-sm">The process of evaluating and verifying that a software product or application does what it’s intended to do. 
   <sup>1</sup>
-</div> 
+</li> 
 
-<h3 v-click> Why should I test? </h3>
+<h3 class="mt-2" v-click> Why should I test? </h3>
   <li v-click>To make sure what you've written does what you intended.</li>
   <li v-click>To make sure you haven't broken some other functionality.</li>
   <li v-click>To speed up the development processs.</li>
+  <li v-click>To improve your confidence.</li>
+  <li v-click>As part of the refactoring process.</li>
 
 <h3 v-click>What are some common types?</h3>
   <li v-click>Unit Tests</li>
@@ -49,18 +51,26 @@ title: What is Software Testing
   <li v-click> End to End Tests</li>
   <li v-click> Component Tests</li>
   <li v-click> Benchmarking Tests</li>
+  <li v-click> Reliablility</li>
 
 <span>1:<a href="https://www.ibm.com/topics/software-testing">https://www.ibm.com/topics/software-testing</a></span>
 
 ---
 
 <h1>What are some testing tools?</h1>
-<li>Cypress</li>
-<li>Playwright</li>
-<li>Selenium</li>
-<li>Junit</li>
-<li>Mockito</li>
-<li>Java Profiler</li>
+<div></div>
+<p>Browser
+  <li>Cypress</li>
+  <li>Playwright</li>
+  <li>Selenium</li>
+</p>
+<p>Framework
+  <li>Junit</li>
+  <li>Mockito</li>
+</p>
+<p>Misc
+  <li>Java Profiler</li>
+</p>
 
 ---
 
@@ -114,7 +124,7 @@ npx cypress open
 
 <li>Cypress opened up a webpage with a todo list, started getting elements on the page and asserting things about them, and listed out the results to the left.</li>
 
-<h3>How does it work?</h3>
+<h3 class="ma-2">How does it work?</h3>
 
 <h4>In a nutshell...</h4>
 
@@ -129,14 +139,12 @@ npx cypress open
 
 <h1>todo.cy.js</h1>
 
-<span>Path to todo.cy</span>
-
-<pre class="text-size-xs ml-8">
+<pre class="text-size-xs pb-2">
 cypress-talk
-  cypress
-  e2e
-    1-getting-started
-      todo.cy.js
+├── cypress
+└── e2e
+    └── 1-getting-started
+        └── todo.cy.js
 </pre>
 ```js
 describe("example to-do app", () => {
@@ -223,20 +231,9 @@ describe("example to-do app", () => {
 <!-- You may want to talk briefly about jest here. -->
 
 ---
-layout: iframe
 
-# the web page source
-url: https://docs.cypress.io/guides/references/assertions
-
----
-
----
-layout: iframe
-
-# the web page source
-url: https://jestjs.io/
-
----
+<iframe src="https://docs.cypress.io/guides/references/assertions" title="Cypress Assertion Docs" height="500" width="800"></iframe>
+ 
 
 ---
 
@@ -244,9 +241,24 @@ url: https://jestjs.io/
 
 <a href="https://gitlab.openpracticesolutions.com/openpm/testing/cypress-openpm">cypress-openpm</a>
 
-04_C215_Login_No_2_Factor.cy.js
+<pre class="text-size-xs pb-2">
+cypress-openpm
+└── cypress
+    ├── downloads
+    └── e2e
+        └── test
+            └── openpm
+                ├── 00_RESETS
+                └── 01_Login_Screen
+                    ├── 01_C3852_Access_Login_and_Verify_Content.cy.js
+                    ├── 02_C3854_Login_Verify_Required_Info.cy.js
+                    ├── 03_C3853_Login_Show_Password.cy.js
+                    └── 04_C215_Login_No_2_Factor.cy.js
+</pre>
 
-cypress-openpm/cypress/e2e/Test/OpenPM/01_Login_Screen/04_C215_Login_No_2_Factor.cy.js
+---
+
+<h4>04_C215_Login_No_2_Factor.cy.js</h4>
 
 ````md magic-move
 ```js
@@ -484,3 +496,754 @@ function loginNo2Factor() {
 }
 ```
 ````
+
+---
+
+<h1>Cypress Recap</h1>
+
+<h4>So far we've covered the basics of Cypress and E2E testing!</h4>
+
+<li>Installed Cypress</li>
+<li>Ran a sample test</li>
+<li>Covered the basics: visit, get and should(assertions)</li>
+<li>Ran a real test</li>
+<li>Learned about more features: type, click and wait</li>
+
+---
+
+<h1>Unit Tests!</h1>
+
+<h4>JUnit</h4>
+
+<span>Instead of testing from top to bottom. Let's test individual units of functionality.</span>
+
+<a href="https://junit.org/junit5/docs/current/user-guide/">JUnit Docs</a>
+
+<iframe src="https://junit.org/junit5/docs/current/user-guide/" title="JUnit Docs" height="300" width="800"></iframe>
+
+---
+
+<h4>JUnit</h4>
+
+<p>Some prereq's...</p>
+<p>You'll need a JDK</p>
+```bash {1|2|3|0}
+curl -s "https://get.sdkman.io" | bash
+sdk install java 21.0.2-tem
+sdk use java 21.0.2-tem
+```
+<p>You'll need maven to build it.</p>
+```bash {0|1|2|0}
+sdk install maven 3.9.8
+sdk use maven 3.9.8
+```
+<p>You'll need a project with a JUnit dependency</p>
+<a href="https://github.com/junit-team/junit5-samples/tree/r5.10.2/junit5-jupiter-starter-maven">junit5-jupiter-starter-maven project</a>
+
+```bash {0|1}
+git clone https://github.com/junit-team/junit5-samples.git
+```
+
+<p>Good luck with your IDE...</p>
+
+---
+
+<h4>JUnit</h4>
+
+<p>We can do it with no IDE!</p>
+
+```bash {1|2|3}
+cd junit5-samples/junit5-jupiter-starter-maven
+mvn clean install
+mvn surefire-report:report
+```
+
+<p>From the current directory, you'll now have a test report at /target/site/surefire-report.html</p>
+<p>Open it in your browser!</p>
+
+---
+ 
+<h4>JUnit</h4>
+
+<p>This project has a Calculator class and a CalculatorTests class.</p>
+<p>Running the Calculator tests yields some familiar output!</p>
+<pre>
+✔️ CalulatorTests
+  ✔️ 1 + 1 = 2
+  ✔️ add(int, int, int)
+    ✔️ 0 + 1 = 1
+    ✔️ 1 + 2 = 3
+    ✔️ 49 + 51 = 100
+    ✔️ 1 + 100 = 101
+</pre>
+
+---
+
+<h4>JUnit</h4>
+
+````md magic-move
+```java
+class CalculatorTests {
+
+	@Test
+	@DisplayName("1 + 1 = 2")
+	void addsTwoNumbers() {
+		Calculator calculator = new Calculator();
+		assertEquals(2, calculator.add(1, 1), "1 + 1 should equal 2");
+	}
+
+	@ParameterizedTest(name = "{0} + {1} = {2}")
+	@CsvSource({
+			"0,    1,   1",
+			"1,    2,   3",
+			"49,  51, 100",
+			"1,  100, 101"
+	})
+	void add(int first, int second, int expectedResult) {
+		Calculator calculator = new Calculator();
+		assertEquals(expectedResult, calculator.add(first, second),
+				() -> first + " + " + second + " should equal " + expectedResult);
+	}
+}
+```
+```java
+class CalculatorTests {
+
+	@Test
+  // Basic @Test Annotation
+	@DisplayName("1 + 1 = 2")
+	void addsTwoNumbers() {
+		Calculator calculator = new Calculator();
+		assertEquals(2, calculator.add(1, 1), "1 + 1 should equal 2");
+	}
+
+	@ParameterizedTest(name = "{0} + {1} = {2}")
+	@CsvSource({
+			"0,    1,   1",
+			"1,    2,   3",
+			"49,  51, 100",
+			"1,  100, 101"
+	})
+	void add(int first, int second, int expectedResult) {
+		Calculator calculator = new Calculator();
+		assertEquals(expectedResult, calculator.add(first, second),
+				() -> first + " + " + second + " should equal " + expectedResult);
+	}
+}
+```
+```java
+class CalculatorTests {
+
+	@Test
+	@DisplayName("1 + 1 = 2")
+  // Changes the name of the test in the test result display!
+  // Otherwise the method name will be used.
+	void addsTwoNumbers() {
+		Calculator calculator = new Calculator();
+		assertEquals(2, calculator.add(1, 1), "1 + 1 should equal 2");
+	}
+
+	@ParameterizedTest(name = "{0} + {1} = {2}")
+	@CsvSource({
+			"0,    1,   1",
+			"1,    2,   3",
+			"49,  51, 100",
+			"1,  100, 101"
+	})
+	void add(int first, int second, int expectedResult) {
+		Calculator calculator = new Calculator();
+		assertEquals(expectedResult, calculator.add(first, second),
+				() -> first + " + " + second + " should equal " + expectedResult);
+	}
+}
+```
+```java
+class CalculatorTests {
+
+	@Test
+	@DisplayName("1 + 1 = 2")
+	void addsTwoNumbers() {
+    // All Tests are package-private and void.
+    // This allows the test runner easy access to the tests. 
+		Calculator calculator = new Calculator();
+		assertEquals(2, calculator.add(1, 1), "1 + 1 should equal 2");
+	}
+
+	@ParameterizedTest(name = "{0} + {1} = {2}")
+	@CsvSource({
+			"0,    1,   1",
+			"1,    2,   3",
+			"49,  51, 100",
+			"1,  100, 101"
+	})
+	void add(int first, int second, int expectedResult) {
+		Calculator calculator = new Calculator();
+		assertEquals(expectedResult, calculator.add(first, second),
+				() -> first + " + " + second + " should equal " + expectedResult);
+	}
+}
+```
+```java
+class CalculatorTests {
+
+	@Test
+	@DisplayName("1 + 1 = 2")
+	void addsTwoNumbers() {
+		Calculator calculator = new Calculator();
+		assertEquals(2, calculator.add(1, 1), "1 + 1 should equal 2");
+    // basic assert method provided by JUnit
+    // First arg is expected value.
+    // Second is actual value.
+    // Third is the message to display in case of failed test.
+	}
+
+	@ParameterizedTest(name = "{0} + {1} = {2}")
+	@CsvSource({
+			"0,    1,   1",
+			"1,    2,   3",
+			"49,  51, 100",
+			"1,  100, 101"
+	})
+	void add(int first, int second, int expectedResult) {
+		Calculator calculator = new Calculator();
+		assertEquals(expectedResult, calculator.add(first, second),
+				() -> first + " + " + second + " should equal " + expectedResult);
+	}
+}
+```
+```java
+class CalculatorTests {
+
+	@Test
+	@DisplayName("1 + 1 = 2")
+	void addsTwoNumbers() {
+		Calculator calculator = new Calculator();
+		assertEquals(2, calculator.add(1, 1), "1 + 1 should equal 2");
+	}
+
+	@ParameterizedTest(name = "{0} + {1} = {2}")
+  // You can give your tests parameters!
+  // In this case we set the display name using a string
+  // with the parameter values interpolated. {0} represents the first arg
+	@CsvSource({
+			"0,    1,   1",
+			"1,    2,   3",
+			"49,  51, 100",
+			"1,  100, 101"
+	})
+	void add(int first, int second, int expectedResult) {
+		Calculator calculator = new Calculator();
+		assertEquals(expectedResult, calculator.add(first, second),
+				() -> first + " + " + second + " should equal " + expectedResult);
+	}
+}
+```
+```java
+class CalculatorTests {
+
+	@Test
+	@DisplayName("1 + 1 = 2")
+	void addsTwoNumbers() {
+		Calculator calculator = new Calculator();
+		assertEquals(2, calculator.add(1, 1), "1 + 1 should equal 2");
+	}
+
+	@ParameterizedTest(name = "{0} + {1} = {2}")
+	@CsvSource({
+			"0,    1,   1",
+			"1,    2,   3",
+			"49,  51, 100",
+			"1,  100, 101"
+	})
+  // We can supply a static list of arguments using CsvSource!
+	void add(int first, int second, int expectedResult) {
+		Calculator calculator = new Calculator();
+		assertEquals(expectedResult, calculator.add(first, second),
+				() -> first + " + " + second + " should equal " + expectedResult);
+	}
+}
+```
+````
+
+---
+
+<h4>JUnit</h4>
+
+```java {all}{maxHeight:'400px'}
+class DateParserTest {
+	Date validDOBDate = null;
+	Date validDate = null;
+
+	@BeforeEach
+	void init() {
+		DateTimeFormatter format = DateTimeFormatter.BASIC_ISO_DATE;
+		validDOBDate = Date.valueOf(LocalDate.parse("19990101", format));
+		format = DateTimeFormatter.BASIC_ISO_DATE;
+		validDate = Date.valueOf(LocalDate.parse("20990101", format));
+
+	}
+
+	@ParameterizedTest
+	@ValueSource(strings = { "ABC", "01 01 2099", "" })
+	void nonDOBInvalid(String input) {
+		Date parsedDate = DateParser.parse(input);
+		assertNull(parsedDate);
+	}
+
+	@Test
+	void nullNonDOB() {
+		Date parsedDate = DateParser.parse(null);
+		assertNull(parsedDate);
+	}
+
+	@Test
+	void nullDOB() {
+		Date parsedDate = DateParser.parseDOB(null);
+		assertNull(parsedDate);
+	}
+
+	@ParameterizedTest
+	@ValueSource(strings = { "ABC", "01 01 1999", "" })
+	void dobInvalid(String input) {
+		Date parsedDate = DateParser.parseDOB(input);
+		assertNull(parsedDate);
+	}
+
+	void dobInvalid() {
+		Date parsedDate = DateParser.parseDOB(null);
+		assertNull(parsedDate);
+	}
+
+	void nonDOBInvalid() {
+		Date parsedDate = DateParser.parse(null);
+		assertNull(parsedDate);
+	}
+
+	@ParameterizedTest
+	@ValueSource(strings = { "01/01/99", "01/01/1999", "01-01-1999", "1-1-1999", "1/1/99", "1999-01-01", "01011999",
+			"19990101", "1/1/1999", "1/01/1999", "10199", "01 01 99" })
+	void dobValid(String input) {
+		Date parsedDate = DateParser.parseDOB(input);
+		assertEquals(validDOBDate, parsedDate);
+	}
+
+	@ParameterizedTest
+	@ValueSource(strings = { "01/01/99", "01/01/2099", "01-01-2099", "1-1-2099", "1/1/99", "2099-01-01", "01012099",
+			"20990101", "1/1/2099", "1/01/2099", "10199", "01 01 99" })
+	void nonDOBValid(String input) {
+		Date parsedDate = DateParser.parse(input);
+		assertEquals(validDate, parsedDate);
+	}
+
+}
+```
+
+---
+
+<h4>JUnit</h4>
+
+````md magic-move
+```java
+class DateParserTest {
+	Date validDOBDate = null;
+	Date validDate = null;
+
+	@BeforeEach
+	void init() {
+		DateTimeFormatter format = DateTimeFormatter.BASIC_ISO_DATE;
+		validDOBDate = Date.valueOf(LocalDate.parse("19990101", format));
+		format = DateTimeFormatter.BASIC_ISO_DATE;
+		validDate = Date.valueOf(LocalDate.parse("20990101", format));
+
+	}
+
+	@ParameterizedTest
+	@ValueSource(strings = { "ABC", "01 01 2099", "" })
+	void nonDOBInvalid(String input) {
+		Date parsedDate = DateParser.parse(input);
+		assertNull(parsedDate);
+	}
+...
+}
+```
+```java
+class DateParserTest {
+  //Some helper fields
+	Date validDOBDate = null;
+	Date validDate = null;
+
+	@BeforeEach
+	void init() {
+		DateTimeFormatter format = DateTimeFormatter.BASIC_ISO_DATE;
+		validDOBDate = Date.valueOf(LocalDate.parse("19990101", format));
+		format = DateTimeFormatter.BASIC_ISO_DATE;
+		validDate = Date.valueOf(LocalDate.parse("20990101", format));
+
+	}
+
+	@ParameterizedTest
+	@ValueSource(strings = { "ABC", "01 01 2099", "" })
+	void nonDOBInvalid(String input) {
+		Date parsedDate = DateParser.parse(input);
+		assertNull(parsedDate);
+	}
+...
+```
+```java
+class DateParserTest {
+	Date validDOBDate = null;
+	Date validDate = null;
+
+	@BeforeEach
+  // We have some Lifecycle hooks
+  // @BeforeEach, @AfterEach, @BeforeAll, @AfterAll
+  // @BeforeEach runs the annotated method before every test.
+  // @AfterEach runs the annotated method after every test.
+  // @BeforeAll runs the annotated method once, before any of the tests are run.
+  // @AfterAll runs the annotated method once, after all the tests have run.
+	void init() {
+		DateTimeFormatter format = DateTimeFormatter.BASIC_ISO_DATE;
+		validDOBDate = Date.valueOf(LocalDate.parse("19990101", format));
+		format = DateTimeFormatter.BASIC_ISO_DATE;
+		validDate = Date.valueOf(LocalDate.parse("20990101", format));
+
+	}
+
+	@ParameterizedTest
+	@ValueSource(strings = { "ABC", "01 01 2099", "" })
+	void nonDOBInvalid(String input) {
+		Date parsedDate = DateParser.parse(input);
+		assertNull(parsedDate);
+	}
+...
+```
+```java
+class DateParserTest {
+	Date validDOBDate = null;
+	Date validDate = null;
+
+	@BeforeEach
+	void init() {
+		DateTimeFormatter format = DateTimeFormatter.BASIC_ISO_DATE;
+		validDOBDate = Date.valueOf(LocalDate.parse("19990101", format));
+		format = DateTimeFormatter.BASIC_ISO_DATE;
+		validDate = Date.valueOf(LocalDate.parse("20990101", format));
+
+	}
+
+	@ParameterizedTest
+	@ValueSource(strings = { "ABC", "01 01 2099", "" })
+   // @ValueSource lets us provide an array of values to a single parameter. 
+   // The test will run once for each value.
+	void nonDOBInvalid(String input) {
+		Date parsedDate = DateParser.parse(input);
+		assertNull(parsedDate);
+	}
+...
+}
+```
+```java
+class DateParserTest {
+	
+  ...	
+  // The last two test cases.
+
+	@ParameterizedTest
+	@ValueSource(strings = { "01/01/99", "01/01/1999", "01-01-1999", "1-1-1999", "1/1/99", "1999-01-01", "01011999",
+			"19990101", "1/1/1999", "1/01/1999", "10199", "01 01 99" })
+	void dobValid(String input) {
+		Date parsedDate = DateParser.parseDOB(input);
+		assertEquals(validDOBDate, parsedDate);
+	}
+
+	@ParameterizedTest
+	@ValueSource(strings = { "01/01/99", "01/01/2099", "01-01-2099", "1-1-2099", "1/1/99", "2099-01-01", "01012099",
+			"20990101", "1/1/2099", "1/01/2099", "10199", "01 01 99" })
+	void nonDOBValid(String input) {
+		Date parsedDate = DateParser.parse(input);
+		assertEquals(validDate, parsedDate);
+	}
+
+}
+```
+````
+
+---
+
+<h4>JUnit</h4>
+
+````md magic-move
+```java
+@ExtendWith({ OPSIntegrationTestExtension.class, DBParameterResolver.class })
+class HL7InIT {
+	int testInterfaceFileRowid = 0;
+	int testInterfaceInRowid = 0;
+	String testInterfaceUserid = "";
+	int HIGH_PRIORITY = 1;
+	HL7In hl7In;
+	InterfaceFile interfaceFile;
+
+	@Test
+	void processHL7(DataBase db) throws Exception {
+		Connection conn = db.getConnection();
+		PreparedStatement ps = conn.prepareStatement("SELECT * FROM updocm.interface WHERE userid = ?");
+		ps.setString(1, testInterfaceUserid);
+		ResultSet rs = ps.executeQuery();
+		rs.next();
+		...
+	}
+  ...
+}
+```
+```java
+@ExtendWith({ OPSIntegrationTestExtension.class, DBParameterResolver.class })
+//We'll take a look at the extensions next.
+class HL7InIT {
+	int testInterfaceFileRowid = 0;
+	int testInterfaceInRowid = 0;
+	String testInterfaceUserid = "";
+	int HIGH_PRIORITY = 1;
+	HL7In hl7In;
+	InterfaceFile interfaceFile;
+
+	@Test
+	void processHL7(DataBase db) throws Exception {
+		Connection conn = db.getConnection();
+		PreparedStatement ps = conn.prepareStatement("SELECT * FROM updocm.interface WHERE userid = ?");
+		ps.setString(1, testInterfaceUserid);
+		ResultSet rs = ps.executeQuery();
+		rs.next();
+		...
+	}
+  ...
+}
+```
+```java
+@ExtendWith({ OPSIntegrationTestExtension.class, DBParameterResolver.class })
+class HL7InIT {
+	...
+
+	@Test
+	void processHL7(DataBase db) throws Exception {
+    // The DBParameterResolver controlls the DataBase parameter that is passed in.
+		Connection conn = db.getConnection();
+		PreparedStatement ps = conn.prepareStatement("SELECT * FROM updocm.interface WHERE userid = ?");
+		ps.setString(1, testInterfaceUserid);
+		ResultSet rs = ps.executeQuery();
+		rs.next();
+		HL7Data.Interface thisInterface = new HL7Data.Interface(rs);
+		ps = conn.prepareStatement("SELECT * FROM updocm.interface_settings WHERE userid = ?");
+		...
+	}
+  ...
+}
+```
+```java
+@ExtendWith({ OPSIntegrationTestExtension.class, DBParameterResolver.class })
+class HL7InIT {
+	...
+
+	@Test
+	void processHL7(DataBase db) throws Exception {
+		Connection conn = db.getConnection();
+    // With that connection we can get whatever we need from the DB!
+		PreparedStatement ps = conn.prepareStatement("SELECT * FROM updocm.interface WHERE userid = ?");
+		ps.setString(1, testInterfaceUserid);
+		ResultSet rs = ps.executeQuery();
+		rs.next();
+		HL7Data.Interface thisInterface = new HL7Data.Interface(rs);
+		ps = conn.prepareStatement("SELECT * FROM updocm.interface_settings WHERE userid = ?");
+		ps.setString(1, testInterfaceUserid);
+		rs = ps.executeQuery();
+		rs.next();
+		thisInterface.settings = new HL7Data.InterfaceGlobalSettings(rs);
+		ps = conn.prepareStatement("SELECT * FROM updocm.interface_in WHERE rowid = ?");
+		ps.setInt(1, testInterfaceInRowid);
+		rs = ps.executeQuery();
+		rs.next();
+		HL7In.InterfaceIn in = new HL7In.InterfaceIn(rs);
+		HL7In.process(thisInterface, in, 1);
+	}
+  ...
+}
+```
+```java
+@ExtendWith({ OPSIntegrationTestExtension.class, DBParameterResolver.class })
+class HL7InIT {
+	...
+
+	@Test
+	void processHL7(DataBase db) throws Exception {
+		Connection conn = db.getConnection();
+		PreparedStatement ps = conn.prepareStatement("SELECT * FROM updocm.interface WHERE userid = ?");
+		ps.setString(1, testInterfaceUserid);
+		ResultSet rs = ps.executeQuery();
+		rs.next();
+		HL7Data.Interface thisInterface = new HL7Data.Interface(rs);
+		ps = conn.prepareStatement("SELECT * FROM updocm.interface_settings WHERE userid = ?");
+		ps.setString(1, testInterfaceUserid);
+		rs = ps.executeQuery();
+		rs.next();
+		thisInterface.settings = new HL7Data.InterfaceGlobalSettings(rs);
+		ps = conn.prepareStatement("SELECT * FROM updocm.interface_in WHERE rowid = ?");
+		ps.setInt(1, testInterfaceInRowid);
+		rs = ps.executeQuery();
+		rs.next();
+		HL7In.InterfaceIn in = new HL7In.InterfaceIn(rs);
+		HL7In.process(thisInterface, in, 1);
+	}
+  ...
+}
+```
+````
+
+---
+
+<h4>JUnit</h4>
+
+````md magic-move
+```java
+public class OPSIntegrationTestExtension implements BeforeAllCallback {
+    public static final String TEST_DB = "updoc01";
+    private static final DataBase db = connectDB.getDB();
+
+    @Override
+    public void beforeAll(ExtensionContext extensionContext) {
+        setDb();
+        SQL.map.put(Thread.currentThread(), db);
+    }
+
+    private static void setDb(){
+        assert db != null;
+        db.useDB(TEST_DB);
+        db.setDbId(TEST_DB.replace("updoc", ""));
+    }
+}
+```
+```java
+public class OPSIntegrationTestExtension implements BeforeAllCallback {
+  // Other Callback classes are also available. e.g. BeforeEach, AfterEach, AfterAll
+    public static final String TEST_DB = "updoc01";
+    private static final DataBase db = connectDB.getDB();
+
+    @Override
+    public void beforeAll(ExtensionContext extensionContext) {
+        setDb();
+        SQL.map.put(Thread.currentThread(), db);
+    }
+
+    private static void setDb(){
+        assert db != null;
+        db.useDB(TEST_DB);
+        db.setDbId(TEST_DB.replace("updoc", ""));
+    }
+}
+```
+```java
+public class OPSIntegrationTestExtension implements BeforeAllCallback {
+    public static final String TEST_DB = "updoc01";
+    private static final DataBase db = connectDB.getDB();
+
+    @Override
+    public void beforeAll(ExtensionContext extensionContext) {
+      // This is called prior to any tests being run.
+      // It allows us access to the DB and the abililty to use
+      // OpsEntities in tests.
+        setDb();
+        SQL.map.put(Thread.currentThread(), db);
+    }
+
+    private static void setDb(){
+        assert db != null;
+        db.useDB(TEST_DB);
+        db.setDbId(TEST_DB.replace("updoc", ""));
+    }
+}
+```
+````
+
+---
+
+<h4>JUnit</h4>
+
+````md magic-move
+```java
+public class DBParameterResolver implements ParameterResolver {
+    @Override
+    public boolean supportsParameter(ParameterContext parameterContext, ExtensionContext extensionContext) 
+      throws ParameterResolutionException {
+        return parameterContext.getParameter().getType().equals(DataBase.class);
+    }
+
+    @Override
+    public Object resolveParameter(ParameterContext parameterContext, ExtensionContext extensionContext) 
+      throws ParameterResolutionException {
+        return SQL.getCurrentDataBase();
+    }
+}
+```
+```java
+public class DBParameterResolver implements ParameterResolver {
+    @Override
+    public boolean supportsParameter(ParameterContext parameterContext, ExtensionContext extensionContext) 
+      throws ParameterResolutionException {
+        //validates the type of parameter that is passed in.
+        return parameterContext.getParameter().getType().equals(DataBase.class);
+    }
+
+    @Override
+    public Object resolveParameter(ParameterContext parameterContext, ExtensionContext extensionContext) 
+      throws ParameterResolutionException {
+        return SQL.getCurrentDataBase();
+    }
+}
+```
+```java
+public class DBParameterResolver implements ParameterResolver {
+    @Override
+    public boolean supportsParameter(ParameterContext parameterContext, ExtensionContext extensionContext) 
+      throws ParameterResolutionException {
+        return parameterContext.getParameter().getType().equals(DataBase.class);
+    }
+
+    @Override
+    public Object resolveParameter(ParameterContext parameterContext, ExtensionContext extensionContext) 
+      throws ParameterResolutionException {
+        // The implementation... 
+        // In this case, I'm retrieving the DataBase object from the SQL object 
+        return SQL.getCurrentDataBase();
+    }
+}
+```
+````
+
+--- 
+
+<h1>JUnit Recap</h1>
+
+<h4>So far we've covered the basics of JUnit and Unit testing!</h4>
+
+<li>Installed all the prereq's</li>
+<li>Ran a sample test and reviewed the results</li>
+<li>Covered the basics: Display Name, Parameterized Tests, parameter sources, assertions</li>
+<li>Ran a real test</li>
+<li>Learned about more features: Lifecycle hooks and Extensions</li>
+
+---
+
+<h1>Resources</h1>
+<div></div>
+<a href="https://www.cypress.io/">Cypress</a>
+<li>https://www.cypress.io/</li>
+<a href="https://playwright.dev/">Playwright</a>
+<li>https://playwright.dev/</li>
+<a href="https://www.selenium.dev/">Selenium</a>
+<li>https://www.selenium.dev/</li>
+<a href="https://junit.org/junit5/">JUnit</a>
+<li>https://junit.org/junit5/</li>
+<a href="https://site.mockito.org/">Mockito</a>
+<li>https://site.mockito.org/</li>
+<a href="https://www.baeldung.com/java-profilers">Java Profilers</a>
+<li>https://www.baeldung.com/java-profilers</li>
+<a href="https://sli.dev/">This was built with Sli Dev!</a>
+<li>https://sli.dev/</li>
